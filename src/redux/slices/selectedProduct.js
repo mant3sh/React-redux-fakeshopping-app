@@ -1,4 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
+
+
 
 export const selectedProductSlice=createSlice({
     name:"selectedProduct",
@@ -9,8 +12,10 @@ export const selectedProductSlice=createSlice({
         },
         removeSelectedProduct:()=>{
             return {};
-        }
-    }
+        },
+        
+    },
+    
 })
 
 export const {setSelectedProduct, removeSelectedProduct} =selectedProductSlice.actions;

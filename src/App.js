@@ -1,42 +1,36 @@
 import "./App.css";
-import { add } from "./redux/slices/cartslice.js";
+import { fetchproducts } from "./redux/slices/setproducts";
 import { useDispatch } from "react-redux";
-import {
-  setSelectedProduct,
-  removeSelectedProduct,
-} from "./redux/slices/selectedProduct";
+import { useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Home from "./components/Home";
+import Cartpage from "./components/Cartpage";
+import ProductDetails from "./components/ProductDetails";
 
 function App() {
   const dispatch = useDispatch();
-  const handelclick = () => {
-    dispatch(add({ id: 1, name: "fuck you" }));
-  };
+
+  useEffect(() => {
+    dispatch(fetchproducts());
+  }, [dispatch]);
   return (
-    <div className="App">
-      <h1>hello</h1>
-      <div>hwllo</div>
-      <button onClick={handelclick}>click to add</button>
-      <br />
-      <br />
-      <br />
-      <button
-        onClick={() => {
-          dispatch(setSelectedProduct({ id: 2, price: 36 }));
-        }}
-      >
-        set slecetd product
-      </button>
-      <br />
-      <br />
-      <button
-        onClick={() => {
-          dispatch(removeSelectedProduct());
-        }}
-      >
-        {" "}
-        remove selected product
-      </button>
-    </div>
+    <Router>
+      <Navbar />
+      <div className="App bg-[#f1f3f6] min-h-[100vh]">
+        <div className="w-[100vw] h-[50px]"></div>
+        <div className="container max-w-[1000px] mx-auto p-3 bg-[#ffffff] box-app">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route
+              path="/productdetails/:productid"
+              element={<ProductDetails />}
+            />
+            <Route path="/cart" element={<Cartpage />} />
+          </Routes>
+        </div>
+      </div>
+    </Router>
   );
 }
 

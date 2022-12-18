@@ -1,0 +1,5 @@
+.produt_image {
+    object-fit: contain;
+    max-height: 300px;
+    margin-inline: auto;
+}

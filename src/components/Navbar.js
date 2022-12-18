@@ -1,0 +1,37 @@
+import React from "react";
+import cartimg from "./images/cartimage.png";
+import { Link } from "react-router-dom";
+
+function Navbar() {
+  return (
+    <div className="fixed t-0 w-[100vw]  bg-[#2874f0] text-white z-[2] shadow-sm">
+      <div className="container max-w-[1000px] mx-auto flex justify-between px-3 py-2">
+        <Link to="/">
+        <div className=" flex gap-2">
+          <img
+            className=" h-[28px] mt-1"
+            src="https://fakestoreapi.com/icons/logo.png"
+            alt=""
+          />
+          <div>
+            <h3 className="">FakeKart</h3>
+          </div>
+        </div>
+        </Link>
+        <Link to="/cart">
+        <div className="flex gap-1 mr-2">
+          <p className="mt-2">Cart</p>
+          <img
+            className="w-[12px] h-[12px] mt-3"
+            src={cartimg}
+            alt=""
+            srcset=""
+          />
+        </div>
+        </Link>
+      </div>
+    </div>
+  );
+}
+
+export default Navbar;
