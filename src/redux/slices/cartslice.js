@@ -4,7 +4,7 @@ export const cartslice= createSlice({
     name:'cart',
     initialState:{
         items:[],
-        totalAmount:0,
+        totalAmount:1,
     },
     reducers:{
         add:(state,{payload})=>{
@@ -12,22 +12,43 @@ export const cartslice= createSlice({
             const index=state.items.findIndex(item=>item.details.id===payload.id);
             if(index>=0){
                state.items[index].count+=1;
-               state.totalAmount+=state.items[index].details.price;
+               state.totalAmount+=Math.round(state.items[index].details.price);
                 
             }else{
                 state.items.push(item);
-                state.totalAmount+=item.details.price;
+                state.totalAmount+=Math.round(item.details.price);
             }
             
         },
         remove:(state,{payload})=>{
             const index=state.items.findIndex(item=>item.details.id===payload.id);
-            state.totalAmount-=(state.items[index].details.price*state.items[index].count);
-            state.items=state.items.filter((item)=>item.deatils.id!==payload.id);
+            state.totalAmount-=Math.round(state.items[index].details.price*state.items[index].count);
+            const newitems=state.items.filter((i)=>i.details.id!==payload.id)
+            state.items=newitems;
             
         },
+        increasequan:(state,{payload})=>{
+            const index=state.items.findIndex(item=>item.details.id===payload.id);
+            state.items[index].count+=1;
+            state.totalAmount+=Math.round(state.items[index].details.price);
+
+
+        },
+        decreasequqn:(state,{payload})=>{
+            const index=state.items.findIndex(item=>item.details.id===payload.id);
+            if(state.items[index].count>1){
+                state.items[index].count-=1;
+                state.totalAmount-=Math.round(state.items[index].details.price);
+            }
+        },
+        checkout:()=>{
+            return {
+                items:[],
+                totalAmount:1,
+            }
+        }
     }
 
 })
-export const {add ,remove}=cartslice.actions;
+export const {add ,remove,increasequan ,decreasequqn,checkout}=cartslice.actions;
 export default cartslice.reducer;
